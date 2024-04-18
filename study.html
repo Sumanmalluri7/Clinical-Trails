@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Browser</title>
+  <style>
+    .button-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      position: fixed;
+      top: 6%;
+      right: 20px;
+      transform: translateY(-50%);
+    }
+
+    .button {
+      margin-left: 10px;
+    }
+
+    h2 {
+      display: float;
+    }
+
+    .lock-button {
+      position: fixed;
+      top: 15%;
+      right: 20px;
+      background-color: #007bff;
+      color: #fff;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .disabled {
+      pointer-events: none;
+      opacity: 0.5;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2 style="background-color:#A8A8A8;">STUDY MEDICATION ADMINISTRATION</h2>
+  <div class="button-container">
+    <button class="button">Back</button>
+    <button class="button" style="background-color:#007bff;">upload Source Documents(#)</button>
+  </div>
+
+  <button class="lock-button">Save and Submit</button><br>
+  <label for="Yes">Is study Drug Administered?</label>
+  <input type="radio" id="Yes" name="physicalDone" value="Yes" onclick="toggleContent('Yes')">
+  <label for="yes">Yes</label>
+  <input type="radio" id="No" name="physicalDone" value="No" onclick="toggleContent('No')">
+  <label for="no">No</label>
+  <input type="radio" id="Not" name="Urine" value="Not">
+  <label for="Not">Not applicable</label><br><br>
+ 
+
+  <div id="reasonSection" class="hidden">
+    <label for="numInput">If No, Specify the reason(s):</label>
+    <input type="text" id="numInput" name="numInput" step="any"><br><br>
+  </div>
+  <div id="contentSection" class="hidden">
+    <div id="organs">
+        <label for="kitNumber">Enter Kit Number:</label>
+        <input type="text" id="kitNumber" name="kitNumber" placeholder="Enter kit number..."><br><br>
+        <label for="doseText">Enter  Dose:</label>
+    <input type="text" id="doseText" name="doseText" placeholder="Enter  dose..."><br><br>
+        <label for="Date">Date of Subcutaneous Injection</label>
+        <input type="date" id="Date" name="date"><br><br>
+        <label for="Time">Time of Subcutaneous Injection</label>
+        <input type="time" id="Time" name="time"><br><br>
+    </div>
+    </div>
+    <script>
+        function toggleContent(choice) {
+          var reasonSection = document.getElementById('reasonSection');
+          var contentSection = document.getElementById('contentSection');
+          var organs = document.getElementById('organs');
+          var abnormicsRadio = document.getElementById('general-abnormics');
+          var commentInput = document.getElementById('general-comment');
+    
+          if (choice === 'Yes') {
+            contentSection.classList.remove('hidden');
+            reasonSection.classList.add('hidden');
+            organs.classList.remove('disabled');
+            abnormicsRadio.disabled = false;
+            if (abnormicsRadio.checked) {
+              commentInput.disabled = false;
+            } else {
+              commentInput.disabled = true;
+              commentInput.value = '';
+            }
+          } else if (choice === 'No') {
+            reasonSection.classList.remove('hidden');
+            contentSection.classList.add('hidden');
+            organs.classList.add('disabled');
+            abnormicsRadio.disabled = true;
+            commentInput.disabled = true;
+            commentInput.value = '';
+          } else {
+            reasonSection.classList.remove('hidden');
+            contentSection.classList.add('hidden');
+            organs.classList.add('disabled');
+            abnormicsRadio.disabled = true;
+            commentInput.disabled = true;
+            commentInput.value = '';
+          }
+        }
+        
+  </script>
+</body>
+
+</html>

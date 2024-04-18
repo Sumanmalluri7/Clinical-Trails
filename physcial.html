@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Browser</title>
+  <style>
+    .button-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      position: fixed;
+      top: 6%;
+      right: 20px;
+      transform: translateY(-50%);
+    }
+
+    .button {
+      margin-left: 10px;
+    }
+
+    h2 {
+      display: float;
+    }
+
+    .lock-button {
+      position: fixed;
+      top: 15%;
+      right: 20px;
+      background-color: #007bff;
+      color: #fff;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .disabled {
+      pointer-events: none;
+      opacity: 0.5;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2 style="background-color:#A8A8A8;"> Physical Examination</h2>
+  <div class="button-container">
+    <button class="button">Back</button>
+    <button class="button">Show Query</button>
+    <button class="button" style="background-color:#007bff;">Add Query</button>
+  </div>
+
+  <button class="lock-button">Lock</button><br>
+  <label for="Yes">Is physical Examination done ? </label>
+  <input type="radio" id="Yes" name="physicalDone" value="Yes" onclick="toggleContent('Yes')">
+  <label for="yes">Yes</label>
+  <input type="radio" id="No" name="physicalDone" value="No" onclick="toggleContent('No')">
+  <label for="no">No</label><br><br>
+  <label for="Date">Date of assessement</label>
+<input type="date" id="Date" name="date">
+<span>&#128197;</span><br>
+
+  <div id="reasonSection" class="hidden">
+    <label for="numInput">If No, Specify the reason(s):</label>
+    <input type="text" id="numInput" name="numInput" step="any"><br><br>
+  </div>
+
+  <div id="contentSection" class="hidden">
+    <div id="organs">
+      <h3>Organ/System &emsp; &emsp; &emsp;&emsp; &emsp; &emsp;&emsp; &emsp;Result &emsp; &emsp; &emsp;&emsp; &emsp; &emsp;&emsp; &emsp; &emsp; comment if result is abnormed</h3>
+      <p>
+        General Appearance &emsp; &emsp; &emsp;
+        <input type="radio" id="general-normal" name="general" value="Normal" onclick="toggleComment('general-comment', 'general-abnormics')">
+        <label for="general-normal">Normal</label>
+        <input type="radio" id="general-abnormal" name="general" value="Abnormal" onclick="toggleComment('general-comment', 'general-abnormics')">
+        <label for="general-abnormal">Abnormal</label>
+        <input type="radio" id="general-abnormics" name="general" value="Abnormics" onclick="toggleComment('general-comment', 'general-abnormics')">
+        <label for="general-abnormics">Abnormics</label>
+        &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+        <input type="text" id="general-comment" name="general-comment" step="any" disabled>
+      </p>
+      <p>
+        Skin & Nails &emsp; &emsp; &emsp;&emsp;&emsp;&ensp;
+        <input type="radio" id="skin-normal" name="skin" value="Normal" onclick="toggleComment('skin-comment', 'skin-abnormics')">
+        <label for="skin-normal">Normal</label>
+        <input type="radio" id="skin-abnormal" name="skin" value="Abnormal" onclick="toggleComment('skin-comment', 'skin-abnormics')">
+        <label for="skin-abnormal">Abnormal</label>
+        <input type="radio" id="skin-abnormics" name="skin" value="Abnormics" onclick="toggleComment('skin-comment', 'skin-abnormics')">
+        <label for="skin-abnormics">Abnormics</label>
+        &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+        <input type="text" id="skin-comment" name="skin-comment" step="any" disabled>
+      </p>
+      <p>
+        Central Nervous System &emsp; &emsp; &emsp;
+        <input type="radio" id="cns-normal" name="cns" value="Normal" onclick="toggleComment('cns-comment','cns-abnormics')">
+        <label for="cns-normal">Normal</label>
+        <input type="radio" id="cns-abnormal" name="cns" value="Abnormal" onclick="toggleComment('cns-comment','cns-abnormics')">
+        <label for="cns-abnormal">Abnormal</label>
+        <input type="radio" id="cns-abnormics" name="cns" value="Abnormics" onclick="toggleComment('cns-comment','cns-abnormics')">
+        <label for="cns-abnormics">Abnormics</label>
+        &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+        <input type="text" id="cns-comment" name="cns-comment" step="any" disabled>
+      </p>
+      <!-- Add sections for other organ/system -->
+      <p>
+        Gastrointestinal &emsp; &emsp; &emsp;
+        <input type="radio" id="gi-normal" name="gi" value="Normal" onclick="toggleComment('gi-comment','gi-abnormics')">
+        <label for="gi-normal">Normal</label>
+        <input type="radio" id="gi-abnormal" name="gi" value="Abnormal" onclick="toggleComment('gi-comment','gi-abnormics')">
+        <label for="gi-abnormal">Abnormal</label>
+        <input type="radio" id="gi-abnormics" name="gi" value="Abnormics" onclick="toggleComment('gi-comment','gi-abnormics')">
+        <label for="gi-abnormics">Abnormics</label>
+        &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+        <input type="text" id="gi-comment" name="gi-comment" step="any" disabled>
+      </p>
+      <p>
+        Cardiovascular &emsp; &emsp; &emsp;
+        <input type="radio" id="cv-normal" name="cv" value="Normal" onclick="toggleComment('cardio-comment','cardio-abnormics')">
+        <label for="cv-normal">Normal</label>
+        <input type="radio" id="cv-abnormal" name="cv" value="Abnormal" onclick="toggleComment('cardio-comment','cardio-abnormics')">
+        <label for="cv-abnormal">Abnormal</label>
+        <input type="radio" id="cv-abnormics" name="cv" value="Abnormics" onclick="toggleComment('cardio-comment','cardio-abnormics')">
+        <label for="cv-abnormics">Abnormics</label>
+        &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+        <input type="text" id="cv-comment" name="cv-comment" step="any" disabled>
+      </p>
+      <p>
+        Respiratory &emsp; &emsp; &emsp;&emsp;&ensp;
+        <input type="radio" id="resp-normal" name="resp" value="Normal" onclick="toggleComment('res-comment','res-abnormics')">
+        <label for="resp-normal">Normal</label>
+        <input type="radio" id="resp-abnormal" name="resp" value="Abnormal" onclick="toggleComment('res-comment','res-abnormics')">
+        <label for="resp-abnormal">Abnormal</label>
+        <input type="radio" id="resp-abnormics" name="resp" value="Abnormics" onclick="toggleComment('res-comment','res-abnormics')">
+        <label for="resp-abnormics">Abnormics</label>
+        &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+        <input type="text" id="resp-comment" name="resp-comment" step="any" disabled>
+      </p>
+      <p>
+        HEENT &emsp; &emsp; &emsp;&emsp;&emsp;&ensp;&ensp;
+        <input type="radio" id="heent-normal" name="heent" value="Normal" onclick="toggleComment('he-comment','he-abnormics')">
+        <label for="heent-normal">Normal</label>
+        <input type="radio" id="heent-abnormal" name="heent" value="Abnormal" onclick="toggleComment('he-comment','he-abnormics')">
+        <label for="heent-abnormal">Abnormal</label>
+        <input type="radio" id="heent-abnormics" name="heent" value="Abnormics" onclick="toggleComment('he-comment','he-abnormics')">
+        <label for="heent-abnormics">Abnormics</label>
+        &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+        <input type="text" id="heent-comment" name="heent-comment" step="any" disabled>
+      </p>
+      <p>
+        Musculoskeletal &emsp; &emsp; &ensp;&ensp;
+        <input type="radio" id="musculo-normal" name="musculo" value="Normal" onclick="toggleComment('mus-comment','mus-abnormics')">
+        <label for="musculo-normal">Normal</label>
+        <input type="radio" id="musculo-abnormal" name="musculo" value="Abnormal" onclick="toggleComment('mus-comment','mus-abnormics')">
+        <label for="musculo-abnormal">Abnormal</label>
+        <input type="radio" id="musculo-abnormics" name="musculo" value="Abnormics" onclick="toggleComment('mus-comment','mus-abnormics')">
+        <label for="musculo-abnormics">Abnormics</label>
+        &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+        <input type="text" id="musculo-comment" name="musculo-comment" step="any" disabled>
+      </p>
+      <p>
+        Lymph nodes &emsp; &emsp; &emsp;&ensp;&ensp;
+        <input type="radio" id="lymph-normal" name="lymph" value="Normal" onclick="toggleComment('node-comment','node-abnormics')">
+        <label for="lymph-normal">Normal</label>
+        <input type="radio" id="lymph-abnormal" name="lymph" value="Abnormal" onclick="toggleComment('node-comment','node-abnormics')">
+        <label for="lymph-abnormal">Abnormal</label>
+        <input type="radio" id="lymph-abnormics" name="lymph" value="Abnormics" onclick="toggleComment('node-comment','node-abnormics')">
+        <label for="lymph-abnormics">Abnormics</label>
+        &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+        <input type="text" id="lymph-comment" name="lymph-comment" step="any" disabled>
+      </p>
+      <p>
+        Extremities &emsp; &emsp; &emsp;&emsp;&ensp;&ensp;
+        <input type="radio" id="extremities-normal" name="extremities" value="Normal" onclick="toggleComment('ex-comment','ex-abnormics')">
+        <label for="extremities-normal">Normal</label>
+        <input type="radio" id="extremities-abnormal" name="extremities" value="Abnormal" onclick="toggleComment('ex-comment','ex-abnormics')">
+        <label for="extremities-abnormal">Abnormal</label>
+        <input type="radio" id="extremities-abnormics" name="extremities" value="Abnormics" onclick="toggleComment('ex-comment','ex-abnormics')">
+        <label for="extremities-abnormics">Abnormics</label>
+        &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+        <input type="text" id="extremities-comment" name="extremities-comment" step="any" disabled>
+      </p>
+      <p>
+        Abdomen &emsp; &emsp; &emsp;&emsp;&emsp;&ensp;&ensp;
+        <input type="radio" id="abdomen-normal" name="abdomen" value="Normal" onclick="toggleComment('ab-comment','ab-abnormics')">
+        <label for="abdomen-normal">Normal</label>
+        <input type="radio" id="abdomen-abnormal" name="abdomen" value="Abnormal" onclick="toggleComment('ab-comment','ab-abnormics')">
+        <label for="abdomen-abnormal">Abnormal</label>
+        <input type="radio" id="abdomen-abnormics" name="abdomen" value="Abnormics" onclick="toggleComment('ab-comment','ab-abnormics')">
+        <label for="abdomen-abnormics">Abnormics</label>
+        &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+        <input type="text" id="abdomen-comment" name="abdomen-comment" step="any" disabled>
+      </p>
+      <p>
+        Other Specify &emsp; &emsp; &emsp;&emsp;&ensp;
+        <input type="radio" id="other-normal" name="other" value="Normal" onclick="toggleComment('ot-comment','ot-abnormics')">
+        <label for="other-normal">Normal</label>
+        <input type="radio" id="other-abnormal" name="other" value="Abnormal" onclick="toggleComment('ot-comment','ot-abnormics')">
+        <label for="other-abnormal">Abnormal</label>
+        <input type="radio" id="other-abnormics" name="other" value="Abnormics" onclick="toggleComment('ot-comment','ot-abnormics')">
+        <label for="other-abnormics">Abnormics</label>
+        &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+        <input type="text" id="other-comment" name="other-comment" step="any" disabled>
+      </p>
+      <!-- Add other organ sections -->
+    </div>
+  </div>
+
+  <script>
+    function toggleContent(choice) {
+      var reasonSection = document.getElementById('reasonSection');
+      var contentSection = document.getElementById('contentSection');
+      var organs = document.getElementById('organs');
+      var abnormicsRadio = document.getElementById('general-abnormics');
+      var commentInput = document.getElementById('general-comment');
+
+      if (choice === 'Yes') {
+        contentSection.classList.remove('hidden');
+        reasonSection.classList.add('hidden');
+        organs.classList.remove('disabled');
+        abnormicsRadio.disabled = false;
+        if (abnormicsRadio.checked) {
+          commentInput.disabled = false;
+        } else {
+          commentInput.disabled = true;
+          commentInput.value = '';
+        }
+      } else if (choice === 'No') {
+        reasonSection.classList.remove('hidden');
+        contentSection.classList.add('hidden');
+        organs.classList.add('disabled');
+        abnormicsRadio.disabled = true;
+        commentInput.disabled = true;
+        commentInput.value = '';
+      } else {
+        reasonSection.classList.remove('hidden');
+        contentSection.classList.add('hidden');
+        organs.classList.add('disabled');
+        abnormicsRadio.disabled = true;
+        commentInput.disabled = true;
+        commentInput.value = '';
+      }
+    }
+
+    function toggleComment(commentId) {
+      var commentInput = document.getElementById(commentId);
+      var abnormicsRadio = document.getElementById('general-abnormics');
+      var abnormicsChecked = abnormicsRadio.checked;
+
+      if (abnormicsChecked) {
+        commentInput.disabled = false; 
+      } else {
+        commentInput.disabled = true; 
+        commentInput.value = '';
+      }
+    }
+  </script>
+</body>
+
+</html>
+

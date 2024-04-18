@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Browser</title>
+  <style>
+    .button-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      position: fixed;
+      top: 6%;
+      right: 20px;
+      transform: translateY(-50%);
+    }
+
+    .button {
+      margin-left: 10px;
+    }
+
+    h2 {
+      display: float;
+    }
+
+    .lock-button {
+      position: fixed;
+      top: 15%;
+      right: 20px;
+      background-color: #007bff;
+      color: #fff;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .disabled {
+      pointer-events: none;
+      opacity: 0.5;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2 style="background-color:#A8A8A8;">Urine Test</h2>
+  <div class="button-container">
+    <button class="button">Back</button>
+    <button class="button" style="background-color:#007bff;">upload Source Documents(#)</button>
+  </div>
+
+  <button class="lock-button">Save and Submit</button><br>
+  <label for="Yes">Is Urine Sample Collected? </label>
+  <input type="radio" id="Yes" name="physicalDone" value="Yes" onclick="toggleContent('Yes')">
+  <label for="yes">Yes</label>
+  <input type="radio" id="No" name="physicalDone" value="No" onclick="toggleContent('No')">
+  <label for="no">No</label>
+  <input type="radio" id="Not" name="Urine" value="Not">
+  <label for="Not">Not applicable</label><br><br>
+  <label for="Date">Date of Sample Collection</label>
+  <input type="date" id="Date" name="date"><br><br>
+  <label for="Time">Time of Sample Collection (in 24 hrs)</label>
+  <input type="time" id="Time" name="time"><br><br>
+
+  <div id="reasonSection" class="hidden">
+    <label for="numInput">If No, Specify the reason(s):</label>
+    <input type="text" id="numInput" name="numInput" step="any"><br><br>
+  </div>
+
+  <div id="contentSection" class="hidden">
+    <div id="organs">
+      <h3>Lab Parameter &emsp; &emsp; &emsp;&emsp; &emsp; Result  &emsp; &emsp;&emsp; &emsp;&emsp;&emsp;  units  &emsp;&emsp; &emsp; &emsp;&emsp; Lab Interpretation  &emsp; &emsp;&emsp; &emsp; &emsp;&emsp;  Comment&emsp; &emsp; &emsp;&emsp;  Not Done/Not Applicable</h3>
+      <p><bold>Colour</bold>&emsp;&emsp; &emsp; &emsp; &emsp;&emsp; &emsp; &emsp;<input type="text" id="colour_textbox" name="colour_textbox"></textarea>
+        &emsp; &emsp;&emsp;<textarea id="colour_six-letters" name="colour_six-letters" rows="1" cols="10" maxlength="6"></textarea> &emsp;&emsp; &emsp; &emsp; <select id="colour_result" name="colour_result">
+        <option value="Normal">Normal</option>
+        <option value="Abnormal NCS">Abnormal NCS</option>
+        <option value="Abnormal CS">Abnormal CS</option>
+    </select>&emsp; &emsp;&emsp; &emsp; &emsp;&emsp;<input type="text" id="colour_textbox" name="colour_textbox">&emsp; &emsp; &emsp;&emsp; &emsp; &emsp;&emsp; <input type="checkbox" id="colour_checkbox" name="colour_checkbox" onclick="toggleInputs('colour')"></p>
+    <p><bold>Transparency</bold> &emsp; &emsp; &emsp;&emsp; &emsp; &emsp;<input type="text" id="transparency_textbox" name="transparency_textbox"></textarea>
+        &emsp; &emsp;&emsp;<textarea id="transparency_six-letters" name="transparency_six-letters" rows="1" cols="10" maxlength="6"></textarea> &emsp;&emsp; &emsp; &emsp; <select id="transparency_result" name="transparency_result">
+        <option value="Normal">Normal</option>
+        <option value="Abnormal NCS">Abnormal NCS</option>
+        <option value="Abnormal CS">Abnormal CS</option>
+    </select>&emsp; &emsp;&emsp; &emsp; &emsp;&emsp;<input type="text" id="transparency_textbox" name="transparency_textbox">&emsp; &emsp; &emsp;&emsp; &emsp;&emsp; &emsp; <input type="checkbox" id="transparency_checkbox" name="transparency_checkbox" onclick="toggleInputs('transparency')"></p>
+    <p><bold>Reaction</bold>&emsp;&emsp; &emsp; &emsp; &emsp;&emsp; &emsp; &emsp;<input type="text" id="reaction_textbox" name="reaction_textbox"></textarea>
+        &emsp; &emsp;&emsp;<textarea id="reaction_six-letters" name="reaction_six-letters" rows="1" cols="10" maxlength="6"></textarea> &emsp;&emsp; &emsp; &emsp; <select id="reaction_result" name="reaction_result">
+        <option value="Normal">Normal</option>
+        <option value="Abnormal NCS">Abnormal NCS</option>
+        <option value="Abnormal CS">Abnormal CS</option>
+    </select>&emsp; &emsp;&emsp; &emsp; &emsp;&emsp;<input type="text" id="reaction_textbox" name="reaction_textbox">&emsp; &emsp; &emsp;&emsp; &emsp; &emsp;&emsp; <input type="checkbox" id="reaction_checkbox" name="reaction_checkbox" onclick="toggleInputs('reaction')"></p>
+    <p><bold>S. Gravity</bold>&emsp;&emsp; &emsp; &emsp; &emsp;&emsp; &emsp; &emsp;<input type="text" id="s_gravity_textbox" name="s_gravity_textbox"></textarea>
+        &emsp; &emsp;&emsp;<textarea id="s_gravity_six-letters" name="s_gravity_six-letters" rows="1" cols="10" maxlength="6"></textarea> &emsp;&emsp; &emsp; &emsp; <select id="s_gravity_result" name="s_gravity_result">
+        <option value="Normal">Normal</option>
+        <option value="Abnormal NCS">Abnormal NCS</option>
+        <option value="Abnormal CS">Abnormal CS</option>
+    </select>&emsp; &emsp;&emsp; &emsp; &emsp;&emsp;<input type="text" id="s_gravity_textbox" name="s_gravity_textbox">&emsp; &emsp; &emsp;&emsp; &emsp; &emsp;&emsp; <input type="checkbox" id="s_gravity_checkbox" name="s_gravity_checkbox" onclick="toggleInputs('s_gravity')"></p>
+    <p><bold>Bilirubin</bold>&emsp;&emsp; &emsp; &emsp; &emsp;&emsp; &emsp; &emsp;<input type="text" id="bilirubin_textbox" name="bilirubin_textbox"></textarea>
+        &emsp; &emsp;&emsp;<textarea id="bilirubin_six-letters" name="bilirubin_six-letters" rows="1" cols="10" maxlength="6"></textarea> &emsp;&emsp; &emsp; &emsp; <select id="bilirubin_result" name="bilirubin_result">
+        <option value="Normal">Normal</option>
+        <option value="Abnormal NCS">Abnormal NCS</option>
+        <option value="Abnormal CS">Abnormal CS</option>
+    </select>&emsp; &emsp;&emsp; &emsp; &emsp;&emsp;<input type="text" id="bilirubin_textbox" name="bilirubin_textbox">&emsp; &emsp; &emsp;&emsp; &emsp; &emsp;&emsp; <input type="checkbox" id="bilirubin_checkbox" name="bilirubin_checkbox" onclick="toggleInputs('bilirubin')"></p>
+    <p><bold>U.Protein</bold>&emsp;&emsp; &emsp; &emsp; &emsp;&emsp; &emsp; &emsp;<input type="text" id="u_protein_textbox" name="u_protein_textbox"></textarea>
+        &emsp; &emsp;&emsp;<textarea id="u_protein_six-letters" name="u_protein_six-letters" rows="1" cols="10" maxlength="6"></textarea> &emsp;&emsp; &emsp; &emsp; <select id="u_protein_result" name="u_protein_result">
+        <option value="Normal">Normal</option>
+        <option value="Abnormal NCS">Abnormal NCS</option>
+        <option value="Abnormal CS">Abnormal CS</option>
+    </select>&emsp; &emsp;&emsp; &emsp; &emsp;&emsp;<input type="text" id="u_protein_textbox" name="u_protein_textbox">&emsp; &emsp; &emsp;&emsp; &emsp; &emsp;&emsp; <input type="checkbox" id="u_protein_checkbox" name="u_protein_checkbox" onclick="toggleInputs('u_protein')"></p>
+    <p><bold>U.Ketones</bold>&emsp;&emsp; &emsp; &emsp; &emsp;&emsp; &emsp; &emsp;<input type="text" id="u_ketones_textbox" name="u_ketones_textbox"></textarea>
+        &emsp; &emsp;&emsp;<textarea id="u_ketones_six-letters" name="u_ketones_six-letters" rows="1" cols="10" maxlength="6"></textarea> &emsp;&emsp; &emsp; &emsp; <select id="u_ketones_result" name="u_ketones_result">
+        <option value="Normal">Normal</option>
+        <option value="Abnormal NCS">Abnormal NCS</option>
+        <option value="Abnormal CS">Abnormal CS</option>
+    </select>&emsp; &emsp;&emsp; &emsp; &emsp;&emsp;<input type="text" id="u_ketones_textbox" name="u_ketones_textbox">&emsp; &emsp; &emsp;&emsp; &emsp; &emsp;&emsp; <input type="checkbox" id="u_ketones_checkbox" name="u_ketones_checkbox" onclick="toggleInputs('u_ketones')"></p>
+    <p><bold>U.Glucose</bold>&emsp;&emsp; &emsp; &emsp; &emsp;&emsp; &emsp; &emsp;<input type="text" id="u_glucose_textbox" name="u_glucose_textbox"></textarea>
+        &emsp; &emsp;&emsp;<textarea id="u_glucose_six-letters" name="u_glucose_six-letters" rows="1" cols="10" maxlength="6"></textarea> &emsp;&emsp; &emsp; &emsp; <select id="u_glucose_result" name="u_glucose_result">
+        <option value="Normal">Normal</option>
+        <option value="Abnormal NCS">Abnormal NCS</option>
+        <option value="Abnormal CS">Abnormal CS</option>
+    </select>&emsp; &emsp;&emsp; &emsp; &emsp;&emsp;<input type="text" id="u_glucose_textbox" name="u_glucose_textbox">&emsp; &emsp; &emsp;&emsp; &emsp; &emsp;&emsp; <input type="checkbox" id="u_glucose_checkbox" name="u_glucose_checkbox" onclick="toggleInputs('u_glucose')"></p>
+    <p><bold>Urobilinogen</bold>&emsp;&emsp; &emsp; &emsp; &emsp;&emsp;  &emsp;<input type="text" id="urobilinogen_textbox" name="urobilinogen_textbox"></textarea>
+        &emsp; &emsp;&emsp;<textarea id="urobilinogen_six-letters" name="urobilinogen_six-letters" rows="1" cols="10" maxlength="6"></textarea> &emsp;&emsp; &emsp;&emsp; <select id="urobilinogen_result" name="urobilinogen_result">
+        <option value="Normal">Normal</option>
+        <option value="Abnormal NCS">Abnormal NCS</option>
+        <option value="Abnormal CS">Abnormal CS</option>
+    </select>&emsp; &emsp;&emsp; &emsp; &emsp;&emsp;<input type="text" id="urobilinogen_textbox" name="urobilinogen_textbox">&emsp; &emsp; &emsp;&emsp; &emsp; &emsp;&emsp; <input type="checkbox" id="urobilinogen_checkbox" name="urobilinogen_checkbox" onclick="toggleInputs('urobilinogen')"></p>
+    <p><bold>Nitrite</bold>&emsp;&emsp; &emsp; &emsp; &emsp;&emsp; &emsp; &emsp;<input type="text" id="nitrite_textbox" name="nitrite_textbox"></textarea>
+        &emsp; &emsp;&emsp;<textarea id="nitrite_six-letters" name="nitrite_six-letters" rows="1" cols="10" maxlength="6"></textarea> &emsp;&emsp; &emsp; &emsp;&emsp;  <select id="nitrite_result" name="nitrite_result">
+        <option value="Normal">Normal</option>
+        <option value="Abnormal NCS">Abnormal NCS</option>
+        <option value="Abnormal CS">Abnormal CS</option>
+    </select>&emsp; &emsp;&emsp; &emsp; &emsp;&emsp;<input type="text" id="nitrite_textbox" name="nitrite_textbox">&emsp; &emsp; &emsp;&emsp; &emsp; &emsp;&emsp; <input type="checkbox" id="nitrite_checkbox" name="nitrite_checkbox" onclick="toggleInputs('nitrite')"></p>
+    <p><bold>Blood</bold>&emsp;&emsp; &emsp; &emsp; &emsp;&emsp; &emsp; &emsp;&emsp;<input type="text" id="blood_textbox" name="blood_textbox"></textarea>
+        &emsp; &emsp;&emsp;<textarea id="blood_six-letters" name="blood_six-letters" rows="1" cols="10" maxlength="6"></textarea> &emsp;&emsp; &emsp; &emsp;&emsp;  <select id="blood_result" name="blood_result">
+        <option value="Normal">Normal</option>
+        <option value="Abnormal NCS">Abnormal NCS</option>
+        <option value="Abnormal CS">Abnormal CS</option>
+    </select>&emsp; &emsp;&emsp; &emsp; &emsp;&emsp;<input type="text" id="blood_textbox" name="blood_textbox">&emsp; &emsp; &emsp;&emsp; &emsp; &emsp;&emsp; <input type="checkbox" id="blood_checkbox" name="blood_checkbox" onclick="toggleInputs('blood')"></p>
+    <p><bold>Leuko</bold>&emsp;&emsp; &emsp; &emsp; &emsp;&emsp; &emsp; &emsp;&emsp;<input type="text" id="leuko_textbox" name="leuko_textbox"></textarea>
+        &emsp; &emsp;&emsp;<textarea id="leuko_six-letters" name="leuko_six-letters" rows="1" cols="10" maxlength="6"></textarea> &emsp;&emsp; &emsp; &emsp;&emsp;  <select id="leuko_result" name="leuko_result">
+        <option value="Normal">Normal</option>
+        <option value="Abnormal NCS">Abnormal NCS</option>
+        <option value="Abnormal CS">Abnormal CS</option>
+    </select>&emsp; &emsp;&emsp; &emsp; &emsp;&emsp;<input type="text" id="leuko_textbox" name="leuko_textbox">&emsp; &emsp; &emsp;&emsp; &emsp; &emsp;&emsp; <input type="checkbox" id="leuko_checkbox" name="leuko_checkbox" onclick="toggleInputs('leuko')"></p>
+    
+  </div>
+
+  <script>
+    function toggleContent(choice) {
+      var reasonSection = document.getElementById('reasonSection');
+      var contentSection = document.getElementById('contentSection');
+      var organs = document.getElementById('organs');
+      var abnormicsRadio = document.getElementById('general-abnormics');
+      var commentInput = document.getElementById('general-comment');
+
+      if (choice === 'Yes') {
+        contentSection.classList.remove('hidden');
+        reasonSection.classList.add('hidden');
+        organs.classList.remove('disabled');
+        abnormicsRadio.disabled = false;
+        if (abnormicsRadio.checked) {
+          commentInput.disabled = false;
+        } else {
+          commentInput.disabled = true;
+          commentInput.value = '';
+        }
+      } else if (choice === 'No') {
+        reasonSection.classList.remove('hidden');
+        contentSection.classList.add('hidden');
+        organs.classList.add('disabled');
+        abnormicsRadio.disabled = true;
+        commentInput.disabled = true;
+        commentInput.value = '';
+      } else {
+        reasonSection.classList.remove('hidden');
+        contentSection.classList.add('hidden');
+        organs.classList.add('disabled');
+        abnormicsRadio.disabled = true;
+        commentInput.disabled = true;
+        commentInput.value = '';
+      }
+    }
+
+   function toggleInputs(parameter) {
+  var checkboxes = document.getElementsByName(parameter + '_checkbox');
+  var textboxes = document.getElementsByName(parameter + '_textbox');
+  var result_selects = document.getElementsByName(parameter + '_result');
+  var six_letters_textareas = document.getElementsByName(parameter + '_six-letters');
+
+  for (var i = 0; i < checkboxes.length; i++) {
+    if (checkboxes[i].checked) {
+      // Disable all input fields including the fourth column
+      textboxes[i].disabled = true;
+      six_letters_textareas[i].disabled = true;
+      result_selects[i].disabled = true;
+      textboxes[i + checkboxes.length].disabled = true; // Access the fourth column textbox
+    } else {
+      // Enable all input fields
+      textboxes[i].disabled = false;
+      six_letters_textareas[i].disabled = false;
+      result_selects[i].disabled = false;
+      textboxes[i + checkboxes.length].disabled = false; // Access the fourth column textbox
+    }
+  }
+}
+
+
+  </script>
+</body>
+
+</html>
+
